@@ -37,7 +37,7 @@ class Solution(object):
 ## method2 快慢指针
 设置两个指针，fast是low的2倍速度，若有环则fast一定能追上slow。(下图参考他人博客)  
 
-![fast-slow](https://github.com/koala7580/weekCoding/blob/master/fast_slow.png)  
+    ![fast-slow](https://github.com/koala7580/weekCoding/blob/master/fast_slow.png?raw=true)  
 
 图中Y点为相遇点，则必有 a+b+n*(b+c) = 2(a+b+m*(b+c)) ,化简得 (n-2m)(b+c) - b = a
 由于 a>=0 ，第一次相遇时 m=0，n=1，有 c=a 。
