@@ -22,9 +22,6 @@ class Solution(object):
         :rtype: ListNode
         """
         cycle_dict = {}
-        # 空节点或单一节点，无环
-        if head is None or head.next is None:
-            return None
         # 遍历列表，判断是否有环
         while head is not None:
             if head.next is None:
