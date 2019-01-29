@@ -1,4 +1,5 @@
 # 二叉树的遍历  
+二叉树的递归遍历和非递归遍历，以及层次遍历。另外一个栈的后序遍历非递归实现、Mirror遍历没有温习，附有链接，后期补充。  
 ### code  
 
 ```python
@@ -151,7 +152,7 @@ Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
              is 5 but its right child's value is 4.  
 ```    
 
-*** 题意 ***  
+*题意：*  
 判断给定的数是不是合法的BST。即当前节点值比他左子树大，比右子树小。
 
 ## method  
@@ -204,9 +205,9 @@ return its level order traversal as:
   [15,7]
 ]  
 ```  
-** 题意 **  
+*题意 :*  
 层次遍历二叉树，返回每层list结构  
-** method **  
+## method   
 先序遍历二叉树，用level记录每层的高度，root 的 level=0。  
 ### code  
 ```python
@@ -258,13 +259,14 @@ return its bottom-up level order traversal as:
   [3]
 ]
 ```  
-** 题意 **  
+*题意:*  
 层次遍历二叉树，从底向上的返回每层list结构。 
-** method **  
+## method  
 先序遍历二叉树，用level记录每层的高度，root 的 level=0,结果记录时，从列表开始位置插入，level与索引对应关系为：  
 ``` index = -(level+1) ```  
-### code  
-* python *  
+### code    
+
+*python*  
 ```python 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -293,7 +295,7 @@ class Solution(object):
         self.pre_order(root.right, level+1, result)
 ```
 
-* 附以前的c++版本 *  
+*附以前的c++版本*  
 非递归的方法，层次记录，结果逆序。以前用vector觉得超级好用，不过好久不用都忘记了……  
 
 ```cpp
