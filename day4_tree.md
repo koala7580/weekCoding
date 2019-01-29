@@ -129,7 +129,7 @@ Assume a BST is defined as follows:
  - The right subtree of a node contains only nodes with keys greater than the node's key.
  - Both the left and right subtrees must also be binary search trees.   
    
-*** Example 1: ***
+**Example 1:**
 ```
 Input:
     2
@@ -138,7 +138,7 @@ Input:
 Output: true
 ```  
 
-*** Example 2: ***
+**Example 2:**
 ```
 Input:
     5
@@ -152,7 +152,7 @@ Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
              is 5 but its right child's value is 4.  
 ```    
 
-*题意：*  
+*题意*  
 判断给定的数是不是合法的BST。即当前节点值比他左子树大，比右子树小。
 
 ## method  
@@ -205,7 +205,7 @@ return its level order traversal as:
   [15,7]
 ]  
 ```  
-*题意 :*  
+*题意*  
 层次遍历二叉树，返回每层list结构  
 ## method   
 先序遍历二叉树，用level记录每层的高度，root 的 level=0。  
@@ -259,7 +259,7 @@ return its bottom-up level order traversal as:
   [3]
 ]
 ```  
-*题意:*  
+*题意*  
 层次遍历二叉树，从底向上的返回每层list结构。 
 ## method  
 先序遍历二叉树，用level记录每层的高度，root 的 level=0,结果记录时，从列表开始位置插入，level与索引对应关系为：  
@@ -341,6 +341,6 @@ public:
 
 二叉树这块主要是递归的思想，递归用的好的话代码会很简洁明了，但是性能要比非递归的差一点。但是自己对这块掌握的不太好，一写起递归或者循环嵌套的代码就容易混乱。还需加强练习，后续有时间再温习二叉树相关知识。
 
-* 参考链接 *  
+*参考链接*  
 [98. Validate Binary Search Tree](https://www.cnblogs.com/slurm/p/5221590.html)  
 [102 Binary Tree Level Order Traversal](https://www.cnblogs.com/loadofleaf/p/5502285.html)  
