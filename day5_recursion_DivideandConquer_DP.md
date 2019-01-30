@@ -148,8 +148,8 @@ def Divide_and_Conquer(p):
   ![](https://github.com/koala7580/weekCoding/blob/master/%E5%95%8A.gif)
 
 啊啊啊，我是汉字搬运工 :) 这大段特别像大学考试前的划重点，就考这些了，还不快去背！
-*参考链接*
 
+*参考链接*
 [五大算法思想：分治、动态规划、贪心、回溯和分支界定](https://blog.csdn.net/KingCat666/article/details/73611009)
 
 # 三、 动态规划  
