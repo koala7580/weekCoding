@@ -124,7 +124,7 @@ def Divide_and_Conquer(p):
 
 通过迭代求解：认为 T(n) 足够平滑，那么由 n=2^m 时 T(n) 的值可以估计 T(n) 的增长速度。通常假定 T(n) 单调上升，从而:
 
-    ![](http://latex.codecogs.com/gif.latex?\m_i<=n<m_i+1) 时，![](http://latex.codecogs.com/gif.latex?\T(m_i)<=T(n)<T(m_i+1))
+![](http://latex.codecogs.com/gif.latex?\m_i<=n<m_i+1) 时，![](http://latex.codecogs.com/gif.latex?\T(m_i)<=T(n)<T(m_i+1))
  
 ## 6. 可使用分治法求解的一些经典问题
   - 二分搜索
