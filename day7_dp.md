@@ -19,7 +19,7 @@
 
 递归定义：
 
-$$ c[i, w]=\begin{cases} 0, &if\  i=0\ or\ w = 0 \\c[i-1,w], &if\ w_i>w \\max(v_i+c[i-1,w-w_i]),&if\ i>0\ and\ w\geq w_i\end{cases} $$
+![](http://latex.codecogs.com/gif.latex?\c[i, w]=\begin{cases} 0, &if\  i=0\ or\ w = 0 \\c[i-1,w], &if\ w_i>w \\max(v_i+c[i-1,w-w_i]),&if\ i>0\ and\ w\geq w_i\end{cases})
 
 ### code
 
