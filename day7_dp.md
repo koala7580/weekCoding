@@ -19,7 +19,7 @@
 
 递归定义：
 
-![](http://latex.codecogs.com/gif.latex?\c[i, w]=\begin{cases}0,&if\ i=0\ or\ w=0\\c[i-1,w],&if\ w_i>w \\max(v_i+c[i-1,w-w_i]),&if\ i>0\ and\ w\geqw_i\end{cases})
+![](http://latex.codecogs.com/gif.latex?c%5Bi%2C%20w%5D%3D%5Cbegin%7Bcases%7D0%2C%26if%5C%20i%3D0%5C%20or%5C%20w%3D0%5C%5Cc%5Bi-1%2Cw%5D%2C%26if%5C%20w_i%3Ew%20%5C%5Cmax%28v_i&plus;c%5Bi-1%2Cw-w_i%5D%29%2C%26if%5C%20i%3E0%5C%20and%5C%20w%5Cgeqw_i%5Cend%7Bcases%7D)
 
 ### code
 
