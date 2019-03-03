@@ -27,13 +27,13 @@
 
 ​	大牛Freidman提出了用损失函数的负梯度来拟合本轮损失的近似值，进而拟合一个CART回归树。第 t 轮的第 i 个样本的损失函数的负梯度表示为:
 
- $$r_{ti}=−[\frac{\partial L(y_i,f(x_i)))}{\partial f(x_i)}]_{f(x)=f_{t−1}(x)}$$
+ $$r_{ti}=-[\frac{\partial L(y_i,f(x_i))))}{\partial f(x_i))}]_{f_{(x)=f_{t-1} (x)}}$$
 
 ​	利用$(x_i,r_{ti})(i=1,2,..m)$我们可以拟合一颗CART回归树，得到了第 t 颗回归树，其对应的叶节点区域$R_{tj},j=1,2,...,J$.其中J为叶子节点的个数。
 
 　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值$c_{tj}$如下：
 
-$$c_{tj}=\underbrace_{arg \; min}_{\rm c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
+$$c_{tj}=\underbrace{arg \; min}_{\rm c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
 
 　　这样我们就得到了本轮的决策树拟合函数如下：
 
@@ -53,17 +53,26 @@ $$f_{t}(x)=f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 
 ​	输出是强学习器f(x)
 
-​	1) 初始化弱学习器  $$f_0(x)=\underbrace{arg \; min}_{\rm c}\sum\limits_{i=1}^{m}L(y_i, c)$$
+​	1) 初始化弱学习器
+$$f_0(x)=\underbrace{arg \; min}_{\rm c}\sum \limits_{i=1}^{m}L(y_i, c)$$
+
 ​	2) 对迭代轮数t=1,2,...T有：
+
 ​		a)对样本i=1,2，...m，计算负梯度
-$$r_{ti}=-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x)=f_{t-1}\(x)}$$
-​		b)利用$(x_i,r_{ti})\;\; (i=1,2,..m)$, 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为$R_{tj},j =1,2,..., J$。其中J为回归树t的叶子节点的个数
+$$r_{ti}=-[ \frac{\partial L(y_i, f(x_i))}{\partial f(x_i)} ]_{f(x)=f_{t-1}(x)}$$
+
+​		b)利用 $(x_i,r_{ti}) (i=1,2,..m)$ , 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为 $R_{tj},j =1,2,..., J$ 。其中J为回归树t的叶子节点的个数
 ​		c) 对叶子区域j =1,2,..J,计算最佳拟合值
-$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i\inR_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
+
+$$c_{tj}=\underbrace{arg \; min}_{c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
+
 ​		d) 更新强学习器
-$$f_{t}(x) = f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
+
+$$f_{t}(x)=f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
+
 ​	3) 得到强学习器f(x)的表达式
-$$f(x) = f_T(x) =f_0(x) + \sum\limits_{t=1}^{T}\sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
+
+$$f(x)=f_T(x)=f_0(x)+\sum\limits_{t=1}^{T}\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 
 ## 四、GBDT分类算法
 
@@ -79,15 +88,15 @@ $$L(y, f(x)) = log(1+ exp(-yf(x)))$$
 
 其中$y \in\{-1, +1\}$。则此时的负梯度误差为
 
-$$r_{ti} = -\bigg[\frac{\partial L(y, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)} = y_i/(1+exp(y_if(x_i)))$$
+$$r_{ti} = -\bigg[\frac{\partial L(y, f(x_i)))}{\partial f(x_i)}\bigg]_{f(x) = f_{t-1}(x)}=y_i/(1+exp(y_if(x_i)))$$
 
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
-$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} log(1+exp(-y_i(f_{t-1}(x_i) +c)))$$
+$$c_{tj}=\underbrace{arg \quad min}_{\rm c}\sum\limits_{x_i \in R_{tj}} log(1+exp(-y_i(f_{t-1}(x_i) +c)))$$
 
 由于上式比较难优化，我们一般使用近似值代替
 
-$$c_{tj} = \sum\limits_{x_i \in R_{tj}}r_{ti}\bigg / \sum\limits_{x_i \in R_{tj}}|r_{ti}|(1-|r_{ti}|)$$
+$$c_{tj}=\sum\limits_{x_i \in R_{tj}}r_{ti}\bigg / \sum\limits_{x_i \in R_{tj}}|r_{ti}|(1-|r_{ti}|)$$
 
 除了负梯度计算和叶子节点的最佳负梯度拟合的线性搜索，二元GBDT分类和GBDT回归算法过程相同。
 
@@ -103,16 +112,16 @@ $$p_k(x) = exp(f_k(x)) \bigg / \sum\limits_{l=1}^{K}exp(f_l(x))$$
 
 集合上两式，我们可以计算出第$t$轮的第$i$个样本对应类别$l$的负梯度误差为
 
-$$r_{til} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg]_{f_k(x) = f_{l, t-1}\;\; (x)} = y_{il} - p_{l, t-1}(x_i)$$
+$$r_{ti} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg]_{f_k(x) = f_{l, t-1}\quad (x)} = y_{il} - p_{l, t-1}(x_i)$$
 
 观察上式可以看出，其实这里的误差就是样本$i$对应类别$l$的真实概率和$t-1$轮预测概率的差值。
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
-$$c_{tjl} = \underbrace{arg\; min}_{c_{jl}}\sum\limits_{i=0}^{m}\sum\limits_{k=1}^{K} L(y_k, f_{t-1, l}(x) + \sum\limits_{j=0}^{J}c_{jl} I(x_i \in R_{tj}))$$
+$$c_{tj} = \underbrace{arg \quad min}_{c_{jl}}\sum\limits_{i=0}^{m}\sum\limits_{k=1}^{K} L(y_k, f_{t-1, l}(x) + \sum\limits_{j=0}^{J}c_{jl} I(x_i \in R_{tj}))$$
 
 由于上式比较难优化，我们一般使用近似值代替
 
-$$c_{tjl} = \frac{K-1}{K} \; \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\limits_{x_i \in R_{til}}|r_{til}|(1-|r_{til}|)}$$
+$$c_{tjl} = \frac{K-1}{K} \quad \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\limits_{x_i \in R_{til}}|r_{til}|(1-|r_{til}|)}$$
 
 除了负梯度计算和叶子节点的最佳负梯度拟合的线性搜索，多元GBDT分类和二元GBDT分类以及GBDT回归算法过程相同。
 
@@ -135,11 +144,11 @@ $$c_{tjl} = \frac{K-1}{K} \; \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\li
 
   2) 在相对少的调参时间情况下，预测的准确率也可以比较高。这个是相对SVM来说的。
 
-  3）使用一些健壮的损失函数，对异常值的鲁棒性非常强。比如 Huber损失函数和Quantile损失函数。
+  3) 使用一些健壮的损失函数，对异常值的鲁棒性非常强。比如 Huber损失函数和Quantile损失函数。
 
 - GBDT的主要缺点有：
 
-  1)由于弱学习器之间存在依赖关系，难以并行训练数据。不过可以通过自采样的SGBT来达到部分并行。
+  1) 由于弱学习器之间存在依赖关系，难以并行训练数据。不过可以通过自采样的SGBT来达到部分并行。
 
 ## 七、sklearn参数
 
@@ -161,7 +170,7 @@ $$c_{tjl} = \frac{K-1}{K} \; \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\li
 
 　　对于**回归模型**，有均方差"ls", 绝对损失"lad", Huber损失"huber"和分位数损失“quantile”。默认是均方差"ls"。一般来说，如果数据的噪音点不多，用默认的均方差"ls"比较好。如果是噪音点较多，则推荐用抗噪音的损失函数"huber"。而如果我们需要对训练集进行分段预测的时候，则采用“quantile”。
 
-　　6) **alpha：**这个参数只有GradientBoostingRegressor有，当我们使用Huber损失"huber"和分位数损失“quantile”时，需要指定分位数的值。默认是0.9，如果噪音点较多，可以适当降低这个分位数的值。
+　　6) **alpha** :这个参数只有GradientBoostingRegressor有，当我们使用Huber损失"huber"和分位数损失“quantile”时，需要指定分位数的值。默认是0.9，如果噪音点较多，可以适当降低这个分位数的值。
 
 ### 2. GBDT类库弱学习器参数
 
