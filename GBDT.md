@@ -6,10 +6,10 @@
     其中$b(x;γ_m)$为基函数，$β_m$为基函数的系数。
 
 - 损失函数极小化：在给定训练数据及损失函数$L(y,f(x))$的条件下，学习加法模型$f(x)$成为经验风险极小化即损失函数极小
-  $$min_{β_m,γ_m}∑_{i=1}^NL(y_i,∑_{m=1}^Mβ_mb(x_i;γ_m))$$
+  $$min_\limits_{β_m,γ_m}∑_{i=1}^NL(y_i,∑_{m=1}^Mβ_mb(x_i;γ_m))$$
 
 - 前向分布算法（forward stagewise algorithm）：该算法的基本思路为：由于学习的是加法模型，如果可以从前往后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式（即损失函数极小化表达式），那么就可以简化优化的复杂度。具体地，每一步只需要优化如下损失函数：
-  $$min_{β,γ}∑_{i=1}^NL(y_i,∑_{m=1}^Mβb(x;γ))$$
+  $$min_\limits_{β,γ}∑_{i=1}^NL(y_i,∑_{m=1}^Mβb(x;γ))$$
 
 ## 二、GBDT算法
 
@@ -33,7 +33,7 @@
 
 　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值$c_{tj}$如下：
 
-$$c_{tj}=\underbrace{arg min}{c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
+$$c_{tj}=\underbrace{arg\quad min}{\rm c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
 
 　　这样我们就得到了本轮的决策树拟合函数如下：
 
@@ -54,7 +54,7 @@ $$f_{t}(x)=f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 ​	输出是强学习器f(x)
 
 ​	1) 初始化弱学习器
-$$f_0(x)=\underbrace{arg \; min} _ {\rm c}\sum \limits_{i=1}^{m}L(y_i, c)$$
+$$f_0(x)=\underbrace{arg \quad min} _ {\rm c}\sum \limits_{i=1}^{m}L(y_i, c)$$
 
 ​	2) 对迭代轮数t=1,2,...T有：
 
@@ -117,7 +117,7 @@ $$r_{ti} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg] _ {f_k(x
 观察上式可以看出，其实这里的误差就是样本$i$对应类别$l$的真实概率和$t-1$轮预测概率的差值。
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
-$$c_{tj} = \underbrace{arg \quad min}_{c_{jl}}\sum\limits_{i=0}^{m}\sum\limits_{k=1}^{K} L(y_k, f_{t-1, l}(x) + \sum\limits_{j=0}^{J}c_{jl} I(x_i \in R_{tj}))$$
+$$c_{tj} = \underbrace{arg \quad min} _ {\rm c_{jl}}\sum\limits_{i=0}^{m}\sum\limits_{k=1}^{K} L(y_k, f_{t-1, l}(x) + \sum\limits_{j=0}^{J}c_{jl} I(x_i \in R_{tj}))$$
 
 由于上式比较难优化，我们一般使用近似值代替
 
