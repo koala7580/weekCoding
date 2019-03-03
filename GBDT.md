@@ -54,17 +54,17 @@ $$f_{t}(x)=f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 ​	输出是强学习器f(x)
 
 ​	1) 初始化弱学习器
-$$f_0(x)=\underbrace{arg \; min}_{\rm c}\sum \limits_{i=1}^{m}L(y_i, c)$$
+$$f_0(x)=\underbrace{arg \; min} _ {\rm c}\sum \limits_{i=1}^{m}L(y_i, c)$$
 
 ​	2) 对迭代轮数t=1,2,...T有：
 
 ​		a)对样本i=1,2，...m，计算负梯度
-$$r_{ti}=-[ \frac{\partial L(y_i, f(x_i))}{\partial f(x_i)} ]_{f(x)=f_{t-1}(x)}$$
+$$r_{ti}=-[ \frac{\partial L(y_i, f(x_i))}{\partial f(x_i)} ] _ {f(x)=f_{t-1}(x)}$$
 
 ​		b)利用 $(x_i,r_{ti}) (i=1,2,..m)$ , 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为 $R_{tj},j =1,2,..., J$ 。其中J为回归树t的叶子节点的个数
 ​		c) 对叶子区域j =1,2,..J,计算最佳拟合值
 
-$$c_{tj}=\underbrace{arg \; min}_{c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
+$$c_{tj}=\underbrace{arg \; min} _ {c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
 
 ​		d) 更新强学习器
 
@@ -88,11 +88,11 @@ $$L(y, f(x)) = log(1+ exp(-yf(x)))$$
 
 其中$y \in\{-1, +1\}$。则此时的负梯度误差为
 
-$$r_{ti} = -\bigg[\frac{\partial L(y, f(x_i)))}{\partial f(x_i)}\bigg]_{f(x) = f_{t-1}(x)}=y_i/(1+exp(y_if(x_i)))$$
+$$r_{ti} = -\bigg[\frac{\partial L(y, f(x_i)))}{\partial f(x_i)}\bigg] _ {f(x) = f_{t-1}(x)}=y_i/(1+exp(y_if(x_i)))$$
 
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
-$$c_{tj}=\underbrace{arg \quad min}_{\rm c}\sum\limits_{x_i \in R_{tj}} log(1+exp(-y_i(f_{t-1}(x_i) +c)))$$
+$$c_{tj}=\underbrace{arg \quad min} _ {\rm c}\sum\limits_{x_i \in R_{tj}} log(1+exp(-y_i(f_{t-1}(x_i) +c)))$$
 
 由于上式比较难优化，我们一般使用近似值代替
 
@@ -112,7 +112,7 @@ $$p_k(x) = exp(f_k(x)) \bigg / \sum\limits_{l=1}^{K}exp(f_l(x))$$
 
 集合上两式，我们可以计算出第$t$轮的第$i$个样本对应类别$l$的负梯度误差为
 
-$$r_{ti} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg]_{f_k(x) = f_{l, t-1}\quad (x)} = y_{il} - p_{l, t-1}(x_i)$$
+$$r_{ti} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg] _ {f_k(x) = f_{l, t-1}\quad (x)} = y_{il} - p_{l, t-1}(x_i)$$
 
 观察上式可以看出，其实这里的误差就是样本$i$对应类别$l$的真实概率和$t-1$轮预测概率的差值。
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
