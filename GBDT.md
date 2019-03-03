@@ -2,11 +2,11 @@
 ## 一、前向分步算法
 
 - 加法模型（additive model）:
-    $$f(x)=∑_{m=1}^Mβ_mb(x;γ_m)​$$
-    其中$b(x;γ_m)​$为基函数，$β_m​$为基函数的系数。
+    $$f(x)=∑_{m=1}^Mβ_mb(x;γ_m)$$
+    其中$b(x;γ_m)$为基函数，$β_m$为基函数的系数。
 
-- 损失函数极小化：在给定训练数据及损失函数$L(y,f(x))​$的条件下，学习加法模型$f(x)​$成为经验风险极小化即损失函数极小
-  $$min_{β_m,γ_m}∑_{i=1}^NL(y_i,∑_{m=1}^Mβ_mb(x_i;γ_m))​$$
+- 损失函数极小化：在给定训练数据及损失函数$L(y,f(x))$的条件下，学习加法模型$f(x)$成为经验风险极小化即损失函数极小
+  $$min_{β_m,γ_m}∑_{i=1}^NL(y_i,∑_{m=1}^Mβ_mb(x_i;γ_m))$$
 
 - 前向分布算法（forward stagewise algorithm）：该算法的基本思路为：由于学习的是加法模型，如果可以从前往后，每一步只学习一个基函数及其系数，逐步逼近优化目标函数式（即损失函数极小化表达式），那么就可以简化优化的复杂度。具体地，每一步只需要优化如下损失函数：
   $$min_{β,γ}∑_{i=1}^NL(y_i,∑_{m=1}^Mβb(x;γ))$$
@@ -27,11 +27,11 @@
 
 ​	大牛Freidman提出了用损失函数的负梯度来拟合本轮损失的近似值，进而拟合一个CART回归树。第 t 轮的第 i 个样本的损失函数的负梯度表示为:
 
- $$r_{ti}=−[\frac{∂L(y_i,f(x_i)))}{∂f(x_i)}]_{f(x)=f_{t−1}(x)}​$$
+ $$r_{ti}=−[\frac{∂L(y_i,f(x_i)))}{∂f(x_i)}]_{f(x)=f_{t−1}(x)}$$
 
-​	利用$(x_i,r_{ti})(i=1,2,..m)​$我们可以拟合一颗CART回归树，得到了第 t 颗回归树，其对应的叶节点区域$R_{tj},j=1,2,...,J​$.其中J为叶子节点的个数。
+​	利用$(x_i,r_{ti})(i=1,2,..m)$我们可以拟合一颗CART回归树，得到了第 t 颗回归树，其对应的叶节点区域$R_{tj},j=1,2,...,J$.其中J为叶子节点的个数。
 
-　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值ctjctj如下：
+　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值$c_{tj}$如下：
 
 $$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
 
@@ -55,11 +55,15 @@ $$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
 
 ​	1) 初始化弱学习器  $$f_0(x) = \underbrace{arg\; min}_{c}\sum\limits_{i=1}^{m}L(y_i, c)$$
 ​	2) 对迭代轮数t=1,2,...T有：
-​		a)对样本i=1,2，...m，计算负梯度  $$r_{ti} = -\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)}$$
+​		a)对样本i=1,2，...m，计算负梯度
+$$r_{ti} = -\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)}$$
 ​		b)利用$(x_i,r_{ti})\;\; (i=1,2,..m)$, 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为$R_{tj}, j =1,2,..., J$。其中J为回归树t的叶子节点的个数
-​		c) 对叶子区域j =1,2,..J,计算最佳拟合值  $$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
-​		d) 更新强学习器  $$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
-​	3) 得到强学习器f(x)的表达式  $$f(x) = f_T(x) =f_0(x) + \sum\limits_{t=1}^{T}\sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})​$$
+​		c) 对叶子区域j =1,2,..J,计算最佳拟合值
+$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
+​		d) 更新强学习器
+$$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
+​	3) 得到强学习器f(x)的表达式
+$$f(x) = f_T(x) =f_0(x) + \sum\limits_{t=1}^{T}\sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})​$$
 
 ## 四、GBDT分类算法
 
@@ -72,15 +76,19 @@ $$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
 对于二元GBDT，如果用类似于逻辑回归的对数似然损失函数，则损失函数为：
 
 $$L(y, f(x)) = log(1+ exp(-yf(x)))$$
-其中$y \in\{-1, +1\}​$。则此时的负梯度误差为
+
+其中$y \in\{-1, +1\}$。则此时的负梯度误差为
 
 $$r_{ti} = -\bigg[\frac{\partial L(y, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)} = y_i/(1+exp(y_if(x_i)))$$
+
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
 $$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} log(1+exp(-y_i(f_{t-1}(x_i) +c)))$$
+
 由于上式比较难优化，我们一般使用近似值代替
 
 $$c_{tj} = \sum\limits_{x_i \in R_{tj}}r_{ti}\bigg / \sum\limits_{x_i \in R_{tj}}|r_{ti}|(1-|r_{ti}|)$$
+
 除了负梯度计算和叶子节点的最佳负梯度拟合的线性搜索，二元GBDT分类和GBDT回归算法过程相同。
 
 ### 2. 多元GBDT分类算法
@@ -88,19 +96,24 @@ $$c_{tj} = \sum\limits_{x_i \in R_{tj}}r_{ti}\bigg / \sum\limits_{x_i \in R_{tj}
 多元GBDT要比二元GBDT复杂一些，对应的是多元逻辑回归和二元逻辑回归的复杂度差别。假设类别数为K，则此时我们的对数似然损失函数为：
 
 $$L(y, f(x)) = - \sum\limits_{k=1}^{K}y_klogp_k(x)$$
+
 其中如果样本输出类别为k，则$y_k=1$。第k类的概率$p_k(x)$的表达式为:
 
 $$p_k(x) = exp(f_k(x)) \bigg / \sum\limits_{l=1}^{K}exp(f_l(x))$$
+
 集合上两式，我们可以计算出第$t$轮的第$i$个样本对应类别$l$的负梯度误差为
 
 $$r_{til} =-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg]_{f_k(x) = f_{l, t-1}\;\; (x)} = y_{il} - p_{l, t-1}(x_i)$$
+
 观察上式可以看出，其实这里的误差就是样本$i$对应类别$l$的真实概率和$t-1$轮预测概率的差值。
 对于生成的决策树，我们各个叶子节点的最佳负梯度拟合值为
 
 $$c_{tjl} = \underbrace{arg\; min}_{c_{jl}}\sum\limits_{i=0}^{m}\sum\limits_{k=1}^{K} L(y_k, f_{t-1, l}(x) + \sum\limits_{j=0}^{J}c_{jl} I(x_i \in R_{tj}))$$
+
 由于上式比较难优化，我们一般使用近似值代替
 
-$$c_{tjl} = \frac{K-1}{K} \; \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\limits_{x_i \in R_{til}}|r_{til}|(1-|r_{til}|)}​$$
+$$c_{tjl} = \frac{K-1}{K} \; \frac{\sum\limits_{x_i \in R_{tjl}}r_{til}}{\sum\limits_{x_i \in R_{til}}|r_{til}|(1-|r_{til}|)}$$
+
 除了负梯度计算和叶子节点的最佳负梯度拟合的线性搜索，多元GBDT分类和二元GBDT分类以及GBDT回归算法过程相同。
 
 ## 五、正则化
