@@ -27,21 +27,21 @@
 
 ​	大牛Freidman提出了用损失函数的负梯度来拟合本轮损失的近似值，进而拟合一个CART回归树。第 t 轮的第 i 个样本的损失函数的负梯度表示为:
 
- $$r_{ti} = -\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)}$$
+ $$r_{ti}=−[\frac{∂L(y_i,f(x_i)))}{∂f(x_i)}]_{f(x)=f_{t−1}(x)}$$
 
 ​	利用$(x_i,r_{ti})(i=1,2,..m)$我们可以拟合一颗CART回归树，得到了第 t 颗回归树，其对应的叶节点区域$R_{tj},j=1,2,...,J$.其中J为叶子节点的个数。
 
 　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值$c_{tj}$如下：
 
-$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
+$$c_{tj}=\underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
 
 　　这样我们就得到了本轮的决策树拟合函数如下：
 
-$$h_t(x) = \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
+$$h_t(x)=\sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
 
 　　从而本轮最终得到的强学习器的表达式如下：
 
-$$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
+$$f_{t}(x)=f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 
 　　通过损失函数的负梯度来拟合，我们找到了一种通用的拟合损失误差的办法，这样无轮是分类问题还是回归问题，我们通过其损失函数的负梯度的拟合，就可以用GBDT来解决我们的分类回归问题。区别仅仅在于损失函数不同导致的负梯度不同而已。
 
@@ -53,15 +53,15 @@ $$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
 
 ​	输出是强学习器f(x)
 
-​	1) 初始化弱学习器  $$f_0(x) = \underbrace{arg\; min}_{c}\sum\limits_{i=1}^{m}L(y_i, c)$$
+​	1) 初始化弱学习器  $$f_0(x)=\underbrace{arg\;min}_{c}\sum\limits_{i=1}^{m}L(y_i, c)$$
 ​	2) 对迭代轮数t=1,2,...T有：
 ​		a)对样本i=1,2，...m，计算负梯度
-$$r_{ti} = -\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x) = f_{t-1}\;\; (x)}$$
-​		b)利用$(x_i,r_{ti})\;\; (i=1,2,..m)$, 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为$R_{tj}, j =1,2,..., J$。其中J为回归树t的叶子节点的个数
+$$r_{ti}=-\bigg[\frac{\partial L(y_i, f(x_i)))}{\partial ;f(x_i)}\bigg]_{f(x)=f_{t-1}\(x)}$$
+​		b)利用$(x_i,r_{ti})\;\; (i=1,2,..m)$, 拟合一颗CART回归树,得到第t颗回归树，其对应的叶子节点区域为$R_{tj},j =1,2,..., J$。其中J为回归树t的叶子节点的个数
 ​		c) 对叶子区域j =1,2,..J,计算最佳拟合值
-$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i \in R_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
+$$c_{tj} = \underbrace{arg\; min}_{c}\sum\limits_{x_i\inR_{tj}} L(y_i,f_{t-1}(x_i) +c)$$
 ​		d) 更新强学习器
-$$f_{t}(x) = f_{t-1}(x) + \sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
+$$f_{t}(x) = f_{t-1}(x)+\sum\limits_{j=1}^{J}c_{tj}I(x\in R_{tj})$$
 ​	3) 得到强学习器f(x)的表达式
 $$f(x) = f_T(x) =f_0(x) + \sum\limits_{t=1}^{T}\sum\limits_{j=1}^{J}c_{tj}I(x \in R_{tj})$$
 
