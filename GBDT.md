@@ -27,13 +27,13 @@
 
 ​	大牛Freidman提出了用损失函数的负梯度来拟合本轮损失的近似值，进而拟合一个CART回归树。第 t 轮的第 i 个样本的损失函数的负梯度表示为:
 
- $$r_{ti}=-[\frac{\partial L(y_i,f(x_i))))}{\partial f(x_i))}]_{f_{(x)=f_{t-1} (x)}}$$
+ $$r_{ti}=-[\frac{\partial L(y_i,f(x_i))))}{\partial f(x_i))}] _ {f_{(x)=f_{t-1}(x)}}$$
 
 ​	利用$(x_i,r_{ti})(i=1,2,..m)$我们可以拟合一颗CART回归树，得到了第 t 颗回归树，其对应的叶节点区域$R_{tj},j=1,2,...,J$.其中J为叶子节点的个数。
 
 　　针对每一个叶子节点里的样本，我们求出使损失函数最小，也就是拟合叶子节点最好的的输出值$c_{tj}$如下：
 
-$$c_{tj}=\underbrace{arg \; min}_{\rm c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
+$$c_{tj}=\underbrace{arg min}{c}\sum\limits_{x_i \in R_{tj}}L(y_i,f_{t-1}(x_i)+c)$$
 
 　　这样我们就得到了本轮的决策树拟合函数如下：
 
