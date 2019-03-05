@@ -145,7 +145,7 @@ def Divide_and_Conquer(p):
   - 循环赛日程表
   - 汉诺塔问题
 
-  ![](https://github.com/koala7580/weekCoding/blob/master/%E5%95%8A.gif)
+  ![](https://github.com/koala7580/weekCoding/blob/master/img/%E5%95%8A.gif)
 
 啊啊啊，我是汉字搬运工 :) 这大段特别像大学考试前的划重点，就考这些了，还不快去背！
 
@@ -183,13 +183,13 @@ def Divide_and_Conquer(p):
 参与挖矿工人的总数是 10 人。每座金矿要么全挖，要么不挖，不能派出一半人挖取一半金矿。
 要求用程序求解出，要想得到尽可能多的黄金，应该选择挖取哪几座金矿？
 ```
-![](https://github.com/koala7580/weekCoding/blob/master/%E5%9B%BD%E7%8E%8B%E6%8C%96%E9%87%91%E7%9F%BF.png)
+![](https://github.com/koala7580/weekCoding/blob/master/img/%E5%9B%BD%E7%8E%8B%E6%8C%96%E9%87%91%E7%9F%BF.png)
 
 下面找出 动态规划 中的这三个概念：
 
 **最优子结构**
 
-![](https://github.com/koala7580/weekCoding/blob/master/%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84.png)
+![](https://github.com/koala7580/weekCoding/blob/master/img/%E6%9C%80%E4%BC%98%E5%AD%90%E7%BB%93%E6%9E%84.png)
 
 有两个最优子结构：
  - 4金矿 10工人 的最优选择
