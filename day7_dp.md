@@ -42,9 +42,9 @@ def KnapSack(w, v, n, c):
 
 ### method_2 改进——序偶法
 
-![](https://github.com/koala7580/weekCoding/blob/master/DKP_value.png)
+![](https://github.com/koala7580/weekCoding/blob/master/img/DKP_value.png)
 
-![](https://github.com/koala7580/weekCoding/blob/master/DKP_algorithm.png)
+![](https://github.com/koala7580/weekCoding/blob/master/img/DKP_algorithm.png)
 
 ```python
 def Knapsack(n, c, w, p, m):
@@ -83,7 +83,7 @@ def Knapsack(n, c, w, p, m):
     Parts()
 ```
 
-*参考链接*：[献上超可爱的马老师的ppt](https://github.com/koala7580/weekCoding/blob/master/5_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E7%AC%AC%E4%BA%94%E7%AB%A0_4.pdf)
+*参考链接*：[献上超可爱的马老师的ppt](https://github.com/koala7580/weekCoding/blob/master/img/5_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92_%E7%AC%AC%E4%BA%94%E7%AB%A0_4.pdf)
 
 # problem  132. Palindrome Partitioning II
 
